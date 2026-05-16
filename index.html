@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prachi Prava Samantaray — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --bg: #f5f3ef;
+      --ink: #1a1814;
+      --muted: #7a7672;
+      --accent: #c8572b;
+      --accent2: #3b6ea5;
+      --border: #dddad4;
+      --card: #efecea;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+ 
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: 0.5;
+    }
+ 
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.3rem 3rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      animation: fadeDown 0.8s ease both;
+    }
+ 
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem; letter-spacing: 0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+ 
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+ 
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      padding-top: 72px;
+    }
+ 
+    .hero-left {
+      padding: 7rem 3rem 4rem 3rem;
+      display: flex; flex-direction: column; justify-content: center;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+ 
+    .hero-tag {
+      font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .hero-tag::before {
+      content: ''; display: inline-block; width: 22px; height: 1px; background: var(--accent);
+    }
+ 
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 4.5vw, 5rem);
+      line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 1.6rem;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+ 
+    .hero-desc {
+      color: var(--muted); font-size: 0.8rem;
+      max-width: 400px; margin-bottom: 2.4rem; line-height: 1.9;
+    }
+ 
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+ 
+    .btn {
+      display: inline-block; padding: 0.72rem 1.7rem;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid var(--ink); color: var(--ink);
+      transition: background 0.25s, color 0.25s; cursor: pointer;
+    }
+    .btn:hover { background: var(--ink); color: var(--bg); }
+    .btn-ghost { background: transparent; }
+ 
+    .hero-right {
+      position: relative; overflow: hidden;
+      animation: fadeIn 1.2s 0.4s ease both;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(140deg, #e4d5c2 0%, #d0bea8 50%, #bca890 100%);
+    }
+ 
+    /* dot grid */
+    .hero-pattern {
+      position: absolute; inset: 0;
+      display: grid; grid-template-columns: repeat(10, 1fr);
+      gap: 18px; padding: 2rem; align-items: center;
+    }
+    .hero-pattern span {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--ink); opacity: 0.18; display: block;
+    }
+ 
+    .hero-badge {
+      position: absolute; top: 2rem; right: 2rem;
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 1rem 1.2rem; text-align: center;
+    }
+    .hero-badge strong {
+      display: block; font-family: 'DM Serif Display', serif;
+      font-size: 2rem; font-weight: 400; color: var(--accent); line-height: 1;
+    }
+    .hero-badge span { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); }
+ 
+    .hero-achievement {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      background: var(--ink); color: var(--bg);
+      padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .trophy { font-size: 1.4rem; }
+    .hero-achievement p { font-size: 0.68rem; line-height: 1.5; }
+    .hero-achievement strong { color: #e8b87a; display: block; font-size: 0.75rem; margin-bottom: 0.1rem; }
+ 
+    .hero-initials {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      font-family: 'DM Serif Display', serif;
+      font-size: 7rem; font-weight: 400; color: rgba(26,24,20,0.07);
+      letter-spacing: -0.05em; line-height: 1; pointer-events: none;
+      white-space: nowrap;
+    }
+ 
+    /* SECTIONS */
+    section { padding: 7rem 3rem; border-top: 1px solid var(--border); }
+ 
+    .section-label {
+      font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 3rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+ 
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.9rem, 3.2vw, 3rem);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+ 
+    /* ABOUT */
+    #about .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+ 
+    .about-text p { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.1rem; }
+ 
+    .about-chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem;
+    }
+    .chip {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.3rem 0.7rem; border: 1px solid var(--border); color: var(--muted);
+    }
+    .chip.accent { border-color: var(--accent); color: var(--accent); }
+ 
+    .skills-block { display: flex; flex-direction: column; gap: 1.8rem; }
+ 
+    .skill-group-label {
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+ 
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      font-size: 0.7rem; padding: 0.35rem 0.75rem;
+      background: var(--card); border: 1px solid var(--border); color: var(--ink);
+    }
+ 
+    /* EXPERIENCE */
+    #experience .exp-list { display: flex; flex-direction: column; gap: 0; }
+ 
+    .exp-item {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 2rem; padding: 2.2rem 0; border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+ 
+    .exp-date { font-size: 0.68rem; color: var(--muted); padding-top: 0.25rem; }
+ 
+    .exp-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem; font-weight: 400; margin-bottom: 0.2rem;
+    }
+    .exp-org {
+      font-size: 0.7rem; color: var(--accent); letter-spacing: 0.06em;
+      margin-bottom: 0.8rem;
+    }
+    .exp-bullets { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .exp-bullets li {
+      font-size: 0.75rem; color: var(--muted);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+    }
+    .exp-bullets li::before { content: '—'; color: var(--border); flex-shrink: 0; margin-top: 0.1rem; }
+ 
+    /* PROJECTS */
+    #projects .projects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
+    }
+ 
+    .proj-card {
+      border: 1px solid var(--border); overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s; cursor: default;
+    }
+    .proj-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(26,24,20,0.07); }
+ 
+    .proj-thumb {
+      aspect-ratio: 16/9; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+ 
+    .pt-1 { background: linear-gradient(135deg, #d4c4b0, #b8a48c); }
+    .pt-2 { background: linear-gradient(135deg, #b8ccd8, #94b0c4); }
+    .pt-3 { background: linear-gradient(135deg, #c8d4b8, #a8bc98); }
+ 
+    .proj-emoji { font-size: 2.2rem; opacity: 0.7; }
+ 
+    .proj-num {
+      position: absolute; bottom: 0.8rem; right: 0.8rem;
+      font-size: 0.6rem; letter-spacing: 0.12em; color: rgba(26,24,20,0.35);
+    }
+ 
+    .proj-body { padding: 1.4rem; }
+    .proj-body h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1.1rem;
+      font-weight: 400; margin-bottom: 0.4rem;
+    }
+    .proj-body p { font-size: 0.72rem; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
+ 
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+    .proj-tag {
+      font-size: 0.6rem; letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border: 1px solid var(--border); color: var(--muted);
+    }
+ 
+    .proj-link {
+      font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent2); text-decoration: none; border-bottom: 1px solid var(--accent2);
+      padding-bottom: 0.1rem;
+    }
+ 
+    /* ACHIEVEMENTS */
+    #achievements .ach-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border);
+    }
+ 
+    .ach-item {
+      background: var(--bg); padding: 2.2rem;
+      transition: background 0.25s;
+    }
+    .ach-item:hover { background: var(--card); }
+ 
+    .ach-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .ach-item h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1rem;
+      font-weight: 400; margin-bottom: 0.4rem;
+    }
+    .ach-item p { font-size: 0.72rem; color: var(--muted); line-height: 1.7; }
+ 
+    /* CONTACT */
+    #contact {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+ 
+    .contact-left h2 { margin-bottom: 1rem; }
+    .contact-left p { color: var(--muted); font-size: 0.8rem; margin-bottom: 2rem; }
+ 
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+ 
+    .contact-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.74rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+      border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+    }
+    .contact-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-item:hover { color: var(--ink); }
+    .contact-item svg { flex-shrink: 0; }
+ 
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    }
+    .form-group input, .form-group textarea {
+      background: transparent; border: 1px solid var(--border);
+      padding: 0.7rem 0.9rem;
+      font-family: 'DM Mono', monospace; font-size: 0.76rem;
+      color: var(--ink); outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--ink); }
+    .form-group textarea { min-height: 95px; }
+ 
+    .btn-submit {
+      align-self: flex-start; background: var(--ink); color: var(--bg);
+      border: 1px solid var(--ink); padding: 0.78rem 2rem;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.25s, color 0.25s;
+    }
+    .btn-submit:hover { background: transparent; color: var(--ink); }
+ 
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.6rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em;
+    }
+ 
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+ 
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+ 
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      #projects .projects-grid { grid-template-columns: 1fr; }
+      #achievements .ach-grid { grid-template-columns: 1fr; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      nav { padding: 1.2rem 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Prachi<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Open to opportunities · CSE 2027</p>
+    <h1>Prachi Prava<br><em>Samantaray</em></h1>
+    <p class="hero-desc">
+      Aspiring Software Development Engineer with strong fundamentals in Java and web technologies — building purposeful apps with a problem-solving mindset.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+ 
+  <div class="hero-right">
+    <div class="hero-pattern" id="dotGrid"></div>
+    <div class="hero-initials">PS</div>
+ 
+    <div class="hero-badge">
+      <strong>3+</strong>
+      <span>Projects<br>Deployed</span>
+    </div>
+ 
+    <div class="hero-achievement">
+      <div class="trophy">🏆</div>
+      <p>
+        <strong>Infosys Global Hackathon 2025</strong>
+        State Winner · National Finalist
+      </p>
+    </div>
+  </div>
+</section>
+ 
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About Me</p>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2>Code, design,<br><em style="font-style:italic;color:var(--accent)">and impact.</em></h2>
+      <br>
+      <p>
+        I'm Prachi — a Computer Science student at C.V. Raman Global University (2023–2027), passionate about building web applications that are fast, intuitive, and meaningful.
+      </p>
+      <p>
+        I've contributed to open-source cloud-native projects at CNCF, supported student startups at ISET, and built everything from AR photo booths to rural travel apps.
+      </p>
+      <p>
+        Beyond code, I enjoy graphic design, and I believe great software is as much about craft as it is about logic.
+      </p>
+      <div class="about-chips">
+        <span class="chip accent">Open Source Contributor</span>
+        <span class="chip">CNCF Hyderabad</span>
+        <span class="chip">ISET Member</span>
+        <span class="chip">Hackathon Finalist</span>
+      </div>
+    </div>
+ 
+    <div class="skills-block reveal" style="transition-delay:0.15s">
+      <div>
+        <p class="skill-group-label">Languages</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Frameworks & Tools</p>
+        <div class="skill-tags">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Vite</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Visual Studio</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Design</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Soft Skills</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Time Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label reveal">Experience</p>
+  <div class="exp-list">
+ 
+    <div class="exp-item reveal">
+      <div class="exp-date">2024 – Present</div>
+      <div>
+        <p class="exp-role">Open Source Contributor</p>
+        <p class="exp-org">Cloud Native Computing Foundation (CNCF) · Hyderabad</p>
+        <ul class="exp-bullets">
+          <li>Contributed 7+ merged pull requests to open-source projects</li>
+          <li>Performed 12+ code reviews following industry best practices</li>
+          <li>Worked on cloud-native solutions aimed at social impact</li>
+        </ul>
+      </div>
+    </div>
+ 
+    <div class="exp-item reveal" style="transition-delay:0.1s">
+      <div class="exp-date">2023 – Present</div>
+      <div>
+        <p class="exp-role">Member — Incubator Student Execution Team</p>
+        <p class="exp-org">ISET · C.V. Raman Global University, Odisha</p>
+        <ul class="exp-bullets">
+          <li>Actively contributed to the ISET incubator, supporting early-stage student startups</li>
+          <li>Assisted in graphic design and videography sessions to refine and scale startup ideas</li>
+        </ul>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Selected Work</p>
+  <h2 class="reveal">Projects</h2>
+  <br><br>
+ 
+  <div class="projects-grid">
+ 
+    <div class="proj-card reveal">
+      <div class="proj-thumb pt-1">
+        <span class="proj-emoji">🏡</span>
+        <span class="proj-num">01</span>
+      </div>
+      <div class="proj-body">
+        <h3>VillageStay App</h3>
+        <p>A web application connecting travelers with rural homestays — bridging urban tourists with authentic village experiences.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Web App</span>
+          <span class="proj-tag">Auth</span>
+          <span class="proj-tag">Booking</span>
+        </div>
+        <a href="https://github.com/prachisamantaray/Village-Stay.git" class="proj-link">GitHub →</a>
+      </div>
+    </div>
+ 
+    <div class="proj-card reveal" style="transition-delay:0.1s">
+      <div class="proj-thumb pt-2">
+        <span class="proj-emoji">📸</span>
+        <span class="proj-num">02</span>
+      </div>
+      <div class="proj-body">
+        <h3>SnapBooth</h3>
+        <p>A Snapchat-style AR photo booth with real-time face-tracked filters, collage mode, aesthetic presets & sticker editor. Deployed on Vercel.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">React</span>
+          <span class="proj-tag">Vite</span>
+          <span class="proj-tag">face-api.js</span>
+          <span class="proj-tag">Vercel</span>
+        </div>
+        <a href="https://github.com/prachisamantaray/SnapBooth.git" class="proj-link">GitHub →</a>
+      </div>
+    </div>
+ 
+    <div class="proj-card reveal" style="transition-delay:0.2s">
+      <div class="proj-thumb pt-3">
+        <span class="proj-emoji">⌨️</span>
+        <span class="proj-num">03</span>
+      </div>
+      <div class="proj-body">
+        <h3>Type or Die</h3>
+        <p>A typing speed game with 3 animated chase themes, custom SVG characters, sound effects, real-time WPM & accuracy tracking. Deployed via GitHub CI/CD.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">React</span>
+          <span class="proj-tag">Vite</span>
+          <span class="proj-tag">Tailwind</span>
+          <span class="proj-tag">Vercel</span>
+        </div>
+        <a href="https://github.com/prachisamantaray/Type-or-Die.git" class="proj-link">GitHub →</a>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <p class="section-label reveal">Recognition</p>
+  <h2 class="reveal">Achievements &<br>Certifications</h2>
+  <br><br>
+ 
+  <div class="ach-grid reveal">
+    <div class="ach-item">
+      <div class="ach-icon">🏆</div>
+      <h3>Infosys Global Hackathon 2025</h3>
+      <p>State Winner and National Finalist out of thousands of participants across India.</p>
+    </div>
+    <div class="ach-item">
+      <div class="ach-icon">🎨</div>
+      <h3>Google UX Design</h3>
+      <p>Certified in Google's UX Design professional curriculum covering research, wireframing, and prototyping.</p>
+    </div>
+    <div class="ach-item">
+      <div class="ach-icon">💻</div>
+      <h3>Full Stack Development</h3>
+      <p>Certified in full-stack development covering frontend, backend, databases, and deployment workflows.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <p class="section-label">Contact</p>
+    <h2>Let's build<br><em style="font-style:italic; color:var(--accent)">something.</em></h2>
+    <p>I'm open to internships, collaborations, and interesting projects. Feel free to reach out — I'd love to connect!</p>
+ 
+    <div class="contact-items">
+      <a href="mailto:prachisamantaray30@gmail.com" class="contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        prachisamantaray30@gmail.com
+      </a>
+      <a href="tel:9090068733" class="contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 11a16 16 0 0 0 5.91 5.91l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/></svg>
+        +91 9090068733
+      </a>
+      <a href="https://www.linkedin.com/in/prachi-prava-samantaray-b69011341" target="_blank" class="contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn Profile
+      </a>
+      <a href="https://github.com/prachisamantaray" target="_blank" class="contact-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub Profile
+      </a>
+    </div>
+  </div>
+ 
+  <div class="reveal" style="transition-delay:0.15s">
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Internship, collab, project…" />
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about it…"></textarea>
+      </div>
+      <button class="btn-submit">Send Message</button>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Prachi Prava Samantaray</span>
+  <span>CSE · C.V. Raman Global University · Odisha</span>
+</footer>
+ 
+<script>
+  // Dot grid
+  const grid = document.getElementById('dotGrid');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('span');
+    grid.appendChild(s);
+  }
+ 
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
+ 
